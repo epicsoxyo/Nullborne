@@ -1,24 +1,30 @@
-using Nullborne.GlyphCode;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TransmuterDropArea : DropArea, IDropHandler
+
+
+namespace Nullborne.UI
 {
-    
-    private Transform endGlyph;
 
-
-
-    private void Start()
+    public class TransmuterDropArea : DropArea, IDropHandler
     {
-        endGlyph = transform.GetChild(0);
-    }
+        
+        private Transform endGlyph;
 
 
 
-    public void OnDrop(PointerEventData eventData)
-    {
-        endGlyph.SetAsLastSibling();
+        private void Start()
+        {
+            endGlyph = transform.GetChild(0);
+        }
+
+
+
+        public void OnDrop(PointerEventData eventData)
+        {
+            endGlyph.SetAsLastSibling();
+        }
+
     }
 
 }

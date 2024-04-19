@@ -4,31 +4,36 @@ using UnityEngine.UI;
 
 
 
-[RequireComponent(typeof(RectTransform))]
-public class DropArea : MonoBehaviour, IPointerEnterHandler
+namespace Nullborne.UI
 {
 
-    public virtual void OnPointerEnter(PointerEventData eventData)
+    [RequireComponent(typeof(RectTransform))]
+    public class DropArea : MonoBehaviour, IPointerEnterHandler
     {
 
-        if(eventData.pointerDrag == null) return;
+        public virtual void OnPointerEnter(PointerEventData eventData)
+        {
 
-        DraggableElement draggedItem = eventData.pointerDrag.GetComponent<DraggableElement>();
+            if(eventData.pointerDrag == null) return;
 
-        if(draggedItem == null) return;
+            DraggableElement draggedItem = eventData.pointerDrag.GetComponent<DraggableElement>();
 
-        UpdateDropArea(draggedItem);
+            if(draggedItem == null) return;
 
-    }
+            UpdateDropArea(draggedItem);
+
+        }
 
 
 
-    protected void UpdateDropArea(DraggableElement draggedItem)
-    {
+        protected void UpdateDropArea(DraggableElement draggedItem)
+        {
 
-        draggedItem.transform.SetParent(transform);
-        LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
-        draggedItem.UpdateMostRecentPosition(); 
+            draggedItem.transform.SetParent(transform);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
+            draggedItem.UpdateMostRecentPosition(); 
+
+        }
 
     }
 

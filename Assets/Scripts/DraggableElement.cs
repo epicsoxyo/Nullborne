@@ -3,110 +3,115 @@ using UnityEngine.EventSystems;
 
 
 
-[RequireComponent(typeof(RectTransform), typeof(CanvasGroup))]
-public class DraggableElement : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler//, IPointerUpHandler
+namespace Nullborne.UI
 {
 
-    private RectTransform rectTransform_;
-
-    private CanvasGroup canvasGroup_;
-    [SerializeField] private float dragAlpha_ = 0.6f;
-    private float defaultAlpha_;
-
-    private Vector3 mostRecentPosition_;
-
-    [SerializeField] private float tileSwapDistThreshold_ = 10f;
-
-
-
-    private void Awake()
+    [RequireComponent(typeof(RectTransform), typeof(CanvasGroup))]
+    public class DraggableElement : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
 
-        rectTransform_ = GetComponent<RectTransform>();
+        private RectTransform rectTransform_;
 
-        canvasGroup_ = GetComponent<CanvasGroup>();
-        defaultAlpha_ = canvasGroup_.alpha;
+        private CanvasGroup canvasGroup_;
+        [SerializeField] private float dragAlpha_ = 0.6f;
+        private float defaultAlpha_;
 
-    }
+        private Vector3 mostRecentPosition_;
 
-
-
-    public void UpdateMostRecentPosition()
-    {
-        mostRecentPosition_ = rectTransform_.position;
-    }
+        [SerializeField] private float tileSwapDistThreshold_ = 10f;
 
 
 
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-
-        canvasGroup_.blocksRaycasts = false;
-        canvasGroup_.alpha = dragAlpha_;
-
-        UpdateMostRecentPosition();
-
-    }
-
-
-
-    public void OnDrag(PointerEventData eventData)
-    {
-
-        Transform currentUIPanel = transform.parent;
-
-        rectTransform_.position = new Vector3
-        (
-            rectTransform_.position.x,
-            eventData.position.y,
-            rectTransform_.position.z
-        );
-
-        foreach(Transform otherTransform in currentUIPanel.transform)
+        private void Awake()
         {
-            if (otherTransform == transform) continue;
 
-            float distanceToOther = Vector3.Distance
-            (
-                rectTransform_.position,
-                otherTransform.position
-            );
+            rectTransform_ = GetComponent<RectTransform>();
 
-            if (distanceToOther <= tileSwapDistThreshold_)
-            {
-                Vector3 temp = otherTransform.position;
+            canvasGroup_ = GetComponent<CanvasGroup>();
+            defaultAlpha_ = canvasGroup_.alpha;
 
-                otherTransform.position = new Vector3
-                (
-                    otherTransform.position.x,
-                    mostRecentPosition_.y,
-                    otherTransform.position.z
-                );
-
-                rectTransform_.position = new Vector3
-                (
-                    otherTransform.position.x,
-                    temp.y,
-                    otherTransform.position.z
-                );
-
-                rectTransform_.SetSiblingIndex(otherTransform.GetSiblingIndex());
-
-                UpdateMostRecentPosition();
-            }
         }
 
-    }
+
+
+        public void UpdateMostRecentPosition()
+        {
+            mostRecentPosition_ = rectTransform_.position;
+        }
 
 
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
+        public void OnBeginDrag(PointerEventData eventData)
+        {
 
-        canvasGroup_.blocksRaycasts = true;
-        canvasGroup_.alpha = defaultAlpha_;
+            canvasGroup_.blocksRaycasts = false;
+            canvasGroup_.alpha = dragAlpha_;
 
-        rectTransform_.position = mostRecentPosition_;
+            UpdateMostRecentPosition();
+
+        }
+
+
+
+        public void OnDrag(PointerEventData eventData)
+        {
+
+            Transform currentUIPanel = transform.parent;
+
+            rectTransform_.position = new Vector3
+            (
+                rectTransform_.position.x,
+                eventData.position.y,
+                rectTransform_.position.z
+            );
+
+            foreach(Transform otherTransform in currentUIPanel.transform)
+            {
+                if (otherTransform == transform) continue;
+
+                float distanceToOther = Vector3.Distance
+                (
+                    rectTransform_.position,
+                    otherTransform.position
+                );
+
+                if (distanceToOther <= tileSwapDistThreshold_)
+                {
+                    Vector3 temp = otherTransform.position;
+
+                    otherTransform.position = new Vector3
+                    (
+                        otherTransform.position.x,
+                        mostRecentPosition_.y,
+                        otherTransform.position.z
+                    );
+
+                    rectTransform_.position = new Vector3
+                    (
+                        otherTransform.position.x,
+                        temp.y,
+                        otherTransform.position.z
+                    );
+
+                    rectTransform_.SetSiblingIndex(otherTransform.GetSiblingIndex());
+
+                    UpdateMostRecentPosition();
+                }
+            }
+
+        }
+
+
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+
+            canvasGroup_.blocksRaycasts = true;
+            canvasGroup_.alpha = defaultAlpha_;
+
+            rectTransform_.position = mostRecentPosition_;
+
+        }
 
     }
 

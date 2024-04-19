@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,52 +25,54 @@ namespace Nullborne.GlyphCode
     public class GlyphVM : MonoBehaviour
     {
 
+        private List<byte> bytecode_ = new List<byte>();
         private Stack<byte> stack_ = new Stack<byte>();
+
         [SerializeField] private Button compileButton_;
-        public ParticleSystem particleSystem_;
+        [SerializeField] private Button runButton_;
+
+        public ParticleSystem testParticles_;
+
 
 
         private void Start()
         {
-            compileButton_.onClick.AddListener(() =>
-            {
-                StartCoroutine(Interpret(Compile()));
-            });
+            compileButton_.onClick.AddListener(Compile);
+            runButton_.onClick.AddListener(() => StartCoroutine("Interpret"));
         }
 
 
 
-        public Queue<byte> Compile()
+        public void Compile()
         {
 
             List<Glyph> glyphs = DepthFirstGlyphsList();
-            Queue<byte> bytecode = new Queue<byte>();
+
+            bytecode_.Clear();
 
             foreach(Glyph glyph in glyphs)
             {
-                bytecode.Enqueue((byte)glyph.GetGlyph());
+                bytecode_.Add((byte)glyph.GetGlyph());
 
                 GlyphLiteral glyphLiteral = glyph.GetComponent<GlyphLiteral>();
 
-                if(glyphLiteral != null) bytecode.Enqueue((byte)glyphLiteral.GetOperand());
+                if(glyphLiteral != null) bytecode_.Add((byte)glyphLiteral.GetOperand());
             }
-
-            return bytecode;
 
         }
 
 
 
-        private IEnumerator Interpret(Queue<byte> bytecode)
+        private IEnumerator Interpret()
         {
 
-            while(bytecode.Count > 0)
+            for(int i = 0; i < bytecode_.Count; i++)
             {
 
-                switch((GlyphCode)bytecode.Dequeue())
+                switch((GlyphCode)bytecode_[i])
                 {
                     case GlyphCode.GLYPH_LITERAL:
-                        stack_.Push(bytecode.Dequeue());
+                        stack_.Push(bytecode_[++i]);
                         break;
                     case GlyphCode.GLYPH_HAULT:
                         stack_.Clear();
@@ -81,7 +84,7 @@ namespace Nullborne.GlyphCode
                         yield return new WaitForSeconds(stack_.Pop());
                         break;
                     case GlyphCode.GLYPH_EXPLODE:
-                        particleSystem_.Play();
+                        testParticles_.Play();
                         break;
                     default:
                         Debug.LogWarning("GLYPH: Implementation error");
