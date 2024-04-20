@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Nullborne.UI;
 
 
 
@@ -11,12 +12,37 @@ namespace Nullborne.Player
     {
 
         private NavMeshAgent navMeshAgent_;
+        
+        private UIScreen currentUIScreen_;
 
 
 
         private void Awake()
         {
             navMeshAgent_ = GetComponent<NavMeshAgent>();
+        }
+
+
+
+        private void Start()
+        {
+            currentUIScreen_ = UIScreenManager.instance.currentScreen;            
+        }
+
+
+
+        private void Update()
+        {
+            
+            if(!Input.GetKeyDown("tab")) return;
+
+            if(currentUIScreen_ == UIScreen.SCREEN_MAIN)
+                currentUIScreen_ = UIScreen.SCREEN_TRANSMUTER;
+            else if(currentUIScreen_ == UIScreen.SCREEN_TRANSMUTER)
+                currentUIScreen_ = UIScreen.SCREEN_MAIN;
+            
+            UIScreenManager.instance.SwitchToScreen(currentUIScreen_);
+
         }
 
 

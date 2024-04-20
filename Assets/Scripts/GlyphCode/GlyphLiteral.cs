@@ -11,19 +11,12 @@ namespace Nullborne.GlyphCode
     {
 
         private TMP_InputField textField;
+        public int operand{get{return int.Parse(textField.text);}}
 
 
         private void Awake()
         {
-            
             textField = GetComponent<TMP_InputField>();
-
-        }
-
-
-        public int GetOperand()
-        {
-            return int.Parse(textField.text);
         }
 
     }

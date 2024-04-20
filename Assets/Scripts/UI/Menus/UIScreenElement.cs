@@ -8,11 +8,14 @@ namespace Nullborne.UI
 {
 
     [RequireComponent(typeof(RectTransform), typeof(CanvasGroup))]
-    public class MenuTransition : MonoBehaviour
+    public class UIScreenElement : MonoBehaviour
     {
 
+        [SerializeField] private UIScreen screen_;
+        public UIScreen screen{get{return screen_;}}
+
         private CanvasGroup canvasGroup_;
-        private float defaultAlpha;
+        private float defaultAlpha_;
 
         private RectTransform rectTransform_;
         [SerializeField] private Vector2 offScreenAnchoredPosition_;
@@ -20,8 +23,17 @@ namespace Nullborne.UI
 
         [SerializeField] private float transitionTime_;
 
-        [SerializeField] private bool startsOnScreen_;
-        private bool isOnScreen;
+        private bool isOnScreen_;
+        public bool isOnScreen
+        {
+            get {return isOnScreen_;}
+            set
+            {
+                canvasGroup_.alpha = value ? defaultAlpha_ : 0f;
+                rectTransform_.anchoredPosition = value ? onScreenAnchoredPosition_ : offScreenAnchoredPosition_;
+                isOnScreen_ = value;
+            }
+        }
 
 
 
@@ -29,28 +41,10 @@ namespace Nullborne.UI
         {
 
             canvasGroup_ = GetComponent<CanvasGroup>();
-            defaultAlpha = canvasGroup_.alpha;
+            defaultAlpha_ = canvasGroup_.alpha;
 
             rectTransform_ = GetComponent<RectTransform>();
             onScreenAnchoredPosition_ = rectTransform_.anchoredPosition;
-
-            canvasGroup_.alpha = startsOnScreen_ ? defaultAlpha : 0f;
-            rectTransform_.anchoredPosition = startsOnScreen_ ? onScreenAnchoredPosition_ : offScreenAnchoredPosition_;
-            isOnScreen = startsOnScreen_;
-
-        }
-
-
-
-        private void Update()
-        {
-            // test
-            if(!Input.GetKeyDown(KeyCode.E)) return;
-            
-            if(isOnScreen) ExitTransition();
-            else EnterTransition();
-
-            isOnScreen = !isOnScreen;
 
         }
 
@@ -58,16 +52,26 @@ namespace Nullborne.UI
 
         public void ExitTransition()
         {
+
+            if(!isOnScreen_) return;
+
+            isOnScreen_ = false;
             StopAllCoroutines();
             StartCoroutine(Transition(false));
+
         }
 
 
 
         public void EnterTransition()
         {
+
+            if(isOnScreen_) return;
+
+            isOnScreen_ = true;
             StopAllCoroutines();
             StartCoroutine(Transition(true));
+
         }
 
 
@@ -78,7 +82,7 @@ namespace Nullborne.UI
             float timeElapsed = 0f;
 
             float startAlpha = canvasGroup_.alpha;
-            float endAlpha = isEntering ? defaultAlpha : 0f;
+            float endAlpha = isEntering ? defaultAlpha_ : 0f;
 
             Vector2 startPos = rectTransform_.anchoredPosition;
             Vector2 endPos = isEntering ? onScreenAnchoredPosition_ : offScreenAnchoredPosition_;

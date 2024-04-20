@@ -10,12 +10,11 @@ namespace Nullborne.GlyphCode
     public class Glyph : MonoBehaviour
     {
 
-        [SerializeField] private GlyphCode glyphCode;
+        [SerializeField] private GlyphCode glyphCode_;
+        public GlyphCode glyphCode{get{return glyphCode_;}}
 
-        public GlyphCode GetGlyph()
-        {
-            return glyphCode;
-        }
+        [SerializeField] private int glyphCost_;
+        public int glyphCost{get{return glyphCost_;}}
 
     }
 

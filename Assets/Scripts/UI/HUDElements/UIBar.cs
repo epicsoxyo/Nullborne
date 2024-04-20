@@ -34,7 +34,7 @@ namespace Nullborne.UI
         public void UpdateBarFill(float fillAmount)
         {
 
-            currentFill = barImage.fillAmount;
+            currentFill = newFill;
 
             if(fillAmount < 0) newFill = 0;
             else if(fillAmount > 1f) newFill = 1f;
