@@ -13,8 +13,6 @@ namespace Nullborne.Player
 
         private NavMeshAgent navMeshAgent_;
         
-        private UIScreen currentUIScreen_;
-
 
 
         private void Awake()
@@ -24,24 +22,24 @@ namespace Nullborne.Player
 
 
 
-        private void Start()
+        private void Update()
         {
-            currentUIScreen_ = UIScreenManager.instance.currentScreen;            
+            
+            if(Input.GetButtonDown("Menu")) SwitchUIScreens();
+
         }
 
 
 
-        private void Update()
+        private void SwitchUIScreens()
         {
-            
-            if(!Input.GetKeyDown("tab")) return;
 
-            if(currentUIScreen_ == UIScreen.SCREEN_MAIN)
-                currentUIScreen_ = UIScreen.SCREEN_TRANSMUTER;
-            else if(currentUIScreen_ == UIScreen.SCREEN_TRANSMUTER)
-                currentUIScreen_ = UIScreen.SCREEN_MAIN;
-            
-            UIScreenManager.instance.SwitchToScreen(currentUIScreen_);
+            UIScreen currentUIScreen = UIScreenManager.instance.currentScreen;
+
+            if(currentUIScreen == UIScreen.SCREEN_MAIN)
+                UIScreenManager.instance.SwitchToScreen(UIScreen.SCREEN_TRANSMUTER);
+            else if(currentUIScreen == UIScreen.SCREEN_TRANSMUTER)
+                UIScreenManager.instance.SwitchToScreen(UIScreen.SCREEN_MAIN);
 
         }
 
@@ -50,7 +48,7 @@ namespace Nullborne.Player
         private void FixedUpdate()
         {
 
-            Vector2 input = MovePlayer();
+            Vector2 input = GetMovementInput();
 
             if (input.magnitude >= 0.01f)
                 MoveRelativeToCamera(input);
@@ -59,8 +57,7 @@ namespace Nullborne.Player
 
 
 
-        // moves player based on user input
-        private Vector2 MovePlayer()
+        private Vector2 GetMovementInput()
         {
             return new Vector2
             (

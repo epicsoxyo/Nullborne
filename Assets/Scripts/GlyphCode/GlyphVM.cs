@@ -19,6 +19,7 @@ namespace Nullborne.GlyphCode
         GLYPH_LOG = 0x02,
         GLYPH_WAIT = 0x03,
         GLYPH_EXPLODE = 0x04,
+        GLYPH_REWIND = 0x05,
 
         // add new glyphs here...
     }

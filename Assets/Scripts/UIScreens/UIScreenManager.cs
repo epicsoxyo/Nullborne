@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using Nullborne.Player;
+
 
 
 namespace Nullborne.UI
@@ -27,10 +29,11 @@ namespace Nullborne.UI
         [SerializeField] private UIScreen startingScreen_;
         private UIScreen currentScreen_;
         public UIScreen currentScreen{get{return currentScreen_;}}
+        private UIScreen previousScreen_;
 
 
 
-        private void Start()
+        private void Awake()
         {
 
             if(instance != null)
@@ -44,6 +47,7 @@ namespace Nullborne.UI
 
             QuickSwitchToScreen(startingScreen_);
             currentScreen_ = startingScreen_;
+            previousScreen_ = currentScreen_;
 
         }
 
@@ -51,17 +55,21 @@ namespace Nullborne.UI
 
         public void QuickSwitchToScreen(UIScreen screen)
         {
+
             foreach(UIScreenElement element in screenElements_)
             {
                 element.isOnScreen = (element.screen == screen);
             }
+
             currentScreen_ = screen;
+
         }
 
 
 
         public void SwitchToScreen(UIScreen screen)
         {
+
             foreach(UIScreenElement element in screenElements_)
             {
                 if(element.screen == screen)
@@ -69,7 +77,27 @@ namespace Nullborne.UI
                 else
                     element.ExitTransition();
             }
+
             currentScreen_ = screen;
+
+        }
+
+
+
+        public void ToggleDialogue(bool dialogueOn)
+        {
+
+            PlayerManager.instance.EnableAllPlayers(!dialogueOn);
+
+            if(dialogueOn)
+            {
+                previousScreen_ = currentScreen_;
+                SwitchToScreen(UIScreen.SCREEN_DIALOGUE);
+                return;
+            }
+
+            SwitchToScreen(previousScreen_);
+
         }
 
     }

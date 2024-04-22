@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8d861e2b5b1e494c86fc997bd926f47, type: 3}
+  m_Name: 0_Prologue
+  m_EditorClassIdentifier: 
+  dialogueName: Prologue
+  dialogue:
+  - In a world where magic reigns supreme, where the very essence of power flows
+    through the veins of its inhabitants, lies a city pulsating with life and energy.
+  - A city built upon the death of all humans.
+  - 'Long ago, a select few were born with the power to wield magic: the manabornes.'
+  - The ManaTech corporation harnessed this mystical force through the harvesting
+    of the manaborne, integrating it into their groundbreaking technology.
+  - But with great power came great unrest.
+  - The manabornes rose against their oppressors, unleashing their wrath upon those
+    without the gift.
+  - In the wake of the uprising, non-magic humans -- eventually dubbed the 'nullbornes'
+    -- became extinct, and all the ManaTech devices were destroyed.
+  - It was made universal law that all nullbornes be put to death, to further the
+    evolution of humanity.
+  - "Yet, thirteen years ago, a glimmer of hope emerged. Concealed from the eyes
+    of society, a child\u2014the first nullborne in generations\u2014was born."
+  - Raised in solitude by their loving mother, they spent their life sheltered from
+    the prejudice of the world beyond.
+  - But fate is a cruel mistress.
+  - The child's mother one day disappeared without a trace, leaving nothing but a
+    note and a strange device.
+  - '"My dear child, if you are reading this note I am afraid you may never see me
+    again.'
+  - '"I must go to the capital, as there is something I have to accomplish.'
+  - '"I have left you with a ManaTech Glyph Transmuter; it is the last of its kind,
+    so you must keep it safe. If ever you are in trouble, it in turn will keep you
+    safe.'
+  - '"I know that you are much smarter than I was at your age. Please know that I
+    love you dearly. Take care of yourself; perhaps I will see you again someday."'
+  - Now, burdened with the grief and curiosity at the loss of their mother, the Nullborne
+    embarks on a quest for answers.
+  - Yet, perhaps this journey will result in more than they had bargained for...
