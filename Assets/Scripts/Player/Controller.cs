@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
+
 using Nullborne.UI;
+using Nullborne.Quests;
 
 
 
@@ -12,12 +14,17 @@ namespace Nullborne.Player
     {
 
         private NavMeshAgent navMeshAgent_;
+
+        private Animator anim_;
+
+        private bool hasOpenedTransmuter_ = false;
         
 
 
         private void Awake()
         {
             navMeshAgent_ = GetComponent<NavMeshAgent>();
+            anim_ = GetComponentInChildren<Animator>();
         }
 
 
@@ -26,6 +33,16 @@ namespace Nullborne.Player
         {
             
             if(Input.GetButtonDown("Menu")) SwitchUIScreens();
+
+            Vector2 input = GetMovementInput();
+
+            if (input.magnitude >= 0.1f)
+            {
+                MoveRelativeToCamera(input);
+                return;
+            }
+
+            anim_.SetFloat("Speed", 0f);
 
         }
 
@@ -36,22 +53,22 @@ namespace Nullborne.Player
 
             UIScreen currentUIScreen = UIScreenManager.instance.currentScreen;
 
-            if(currentUIScreen == UIScreen.SCREEN_MAIN)
-                UIScreenManager.instance.SwitchToScreen(UIScreen.SCREEN_TRANSMUTER);
-            else if(currentUIScreen == UIScreen.SCREEN_TRANSMUTER)
+            if(currentUIScreen == UIScreen.SCREEN_TRANSMUTER)
+            {
                 UIScreenManager.instance.SwitchToScreen(UIScreen.SCREEN_MAIN);
+                return;
+            }
+            
+            if(currentUIScreen == UIScreen.SCREEN_MAIN)
+            {
+                if(!hasOpenedTransmuter_)
+                {
+                    hasOpenedTransmuter_ = true;
+                    QuestManager.instance.MarkQuestAsComplete("OpenTransmuter");
+                }
 
-        }
-
-
-
-        private void FixedUpdate()
-        {
-
-            Vector2 input = GetMovementInput();
-
-            if (input.magnitude >= 0.01f)
-                MoveRelativeToCamera(input);
+                UIScreenManager.instance.SwitchToScreen(UIScreen.SCREEN_TRANSMUTER);
+            }
 
         }
 
@@ -90,6 +107,8 @@ namespace Nullborne.Player
             // set player position in navmesh
             Vector3 destination = transform.position + relativeMovement;
             navMeshAgent_.SetDestination(destination);
+
+            anim_.SetFloat("Speed", relativeMovement.magnitude);
 
         }
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -10,10 +8,10 @@ namespace Nullborne.GlyphCode
     public class Glyph : MonoBehaviour
     {
 
-        [SerializeField] private GlyphCode glyphCode_;
+        [SerializeField] protected GlyphCode glyphCode_;
         public GlyphCode glyphCode{get{return glyphCode_;}}
 
-        [SerializeField] private int glyphCost_;
+        [SerializeField] protected int glyphCost_;
         public int glyphCost{get{return glyphCost_;}}
 
     }

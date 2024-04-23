@@ -5,7 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Nullborne.Player;
-using Unity.VisualScripting;
+using Nullborne.Quests;
+using Nullborne.Dialogue;
 
 
 
@@ -18,8 +19,8 @@ namespace Nullborne.GlyphCode
         GLYPH_HAULT = 0x01,
         GLYPH_LOG = 0x02,
         GLYPH_WAIT = 0x03,
-        GLYPH_EXPLODE = 0x04,
-        GLYPH_REWIND = 0x05,
+        GLYPH_REWIND = 0x04,
+        GLYPH_EXPLODE = 0x05,
 
         // add new glyphs here...
     }
@@ -34,10 +35,13 @@ namespace Nullborne.GlyphCode
         [SerializeField] private Button compileButton_;
         [SerializeField] private Button runButton_;
 
+        [SerializeField] private GameObject onDeathFacadePrefab_;
+        [SerializeField] private DialogueAsset facadeDialogue_;
+
         private ManaManager manaManager_;
         private int manaCost_ = 0;
 
-        public ParticleSystem testParticles_;
+        private bool hasCompiled_ = false;
 
 
 
@@ -47,7 +51,7 @@ namespace Nullborne.GlyphCode
             manaManager_ = FindFirstObjectByType<ManaManager>();
 
             compileButton_.onClick.AddListener(Compile);
-            runButton_.onClick.AddListener(TransmuteGlyphs);
+            runButton_.onClick.AddListener(() => TransmuteGlyphs(GlyphCallbackType.CB_ONCAST));
         }
 
 
@@ -65,27 +69,54 @@ namespace Nullborne.GlyphCode
             {
                 bytecode_.Add((byte)glyph.glyphCode);
                 manaCost_ += glyph.glyphCost;
-                Debug.Log(manaCost_);
-                GlyphLiteral glyphLiteral = glyph.GetComponent<GlyphLiteral>();
 
+                GlyphLiteral glyphLiteral = glyph.GetComponent<GlyphLiteral>();
                 if(glyphLiteral != null) bytecode_.Add((byte)glyphLiteral.operand);
+            }
+
+            GlyphCallback glyphCallback = GetComponentInChildren<GlyphCallback>();
+
+            if(!hasCompiled_ && bytecode_.Count > 0 && glyphCallback.callbackType == GlyphCallbackType.CB_ONDEATH)
+            {
+                hasCompiled_ = true;
+                QuestManager.instance.MarkQuestAsComplete("ClickCompile");
+                SwitchOutOnDeathFacade(glyphCallback);
             }
 
         }
 
 
 
-        public void TransmuteGlyphs()
+        private void SwitchOutOnDeathFacade(GlyphCallback glyphCallback)
+        {
+
+            Transform callbackTransform = glyphCallback.transform;
+
+            for(int i = callbackTransform.childCount - 1; i >= 0; i--)
+            {
+                Destroy(callbackTransform.GetChild(i).gameObject);
+            }
+
+            Destroy(callbackTransform.GetComponent<VerticalLayoutGroup>());
+
+            GameObject onDeathFacade = Instantiate(onDeathFacadePrefab_, callbackTransform);
+            onDeathFacade.GetComponent<Button>().onClick.AddListener(() => DialogueManager.instance.OpenDialogue(facadeDialogue_));
+
+        }
+
+
+
+        public void TransmuteGlyphs(GlyphCallbackType callback)
         {
             if(manaManager_.currentMana < manaCost_) return;
             manaManager_.UseMana(manaCost_);
-            StartCoroutine("Interpret");
+            StartCoroutine(Interpret(callback));
         }
 
 
 
         // uses a stack to process the bytecode
-        private IEnumerator Interpret()
+        private IEnumerator Interpret(GlyphCallbackType callback)
         {
 
             Stack<byte> codeStack = new Stack<byte>();
@@ -108,7 +139,7 @@ namespace Nullborne.GlyphCode
                         yield return new WaitForSeconds(codeStack.Pop());
                         break;
                     case GlyphCode.GLYPH_EXPLODE:
-                        testParticles_.Play();
+                        // testParticles_.Play();
                         break;
                     default:
                         Debug.LogWarning("GLYPH: Implementation error");

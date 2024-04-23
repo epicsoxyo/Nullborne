@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using Nullborne.Levels;
 
 
 
@@ -14,8 +15,9 @@ namespace Nullborne.Quests
         private TextMeshProUGUI questGoalField;
 
         [SerializeField] private GameObject questCheckboxPrefab;
-        private TextMeshProUGUI[] questCheckboxes;
+        private QuestCheckbox[] questCheckboxes_;
 
+        string[] questEventListeners_;
         private bool[] completed;
 
 
@@ -43,16 +45,21 @@ namespace Nullborne.Quests
 
             ClearQuestList();
 
-            string[] questItems = questAsset.questChecklist;
-            string[] questEventListeners = questAsset.questEventListeners;
+            string[] questChecklist = questAsset.questChecklist;
 
-            foreach(string questItem in questItems)
+            questEventListeners_ = questAsset.questEventListeners;
+
+            questCheckboxes_ = new QuestCheckbox[questChecklist.Length];
+
+            completed = new bool[questChecklist.Length];
+            for(int i = 0; i < completed.Length; i++) completed[i] = false;
+
+            for(int i = 0; i < questChecklist.Length; i++)
             {
-                GameObject questCheckbox = Instantiate(questCheckboxPrefab);
-                questCheckbox.transform.SetParent(transform);
+                questCheckboxes_[i] = Instantiate(questCheckboxPrefab).GetComponent<QuestCheckbox>();
+                questCheckboxes_[i].transform.SetParent(transform);
 
-                questCheckbox.GetComponentInChildren<TextMeshProUGUI>().SetText(questItem);
-
+                questCheckboxes_[i].UpdateQuestText(questChecklist[i]);
             }
 
         }
@@ -66,6 +73,38 @@ namespace Nullborne.Quests
             {
                 Destroy(transform.GetChild(i).gameObject);
             }
+
+        }
+
+
+
+        // not the best way of doing this but eh i dont have time
+        public void MarkQuestAsComplete(string questListener)
+        {
+
+            for(int i = 0; i < questEventListeners_.Length; i++)
+            {
+                if(questEventListeners_[i] == questListener)
+                {
+                    questCheckboxes_[i].MarkAsComplete();
+                    if(CheckIfComplete()) return;
+                }
+            }
+
+        }
+
+
+        // nor this
+        private bool CheckIfComplete()
+        {
+
+            foreach(QuestCheckbox questCheckbox in questCheckboxes_)
+            {
+                if(!questCheckbox.isComplete) return false;
+            }
+
+            LevelScript.instance.QuestCompleted();
+            return true;
 
         }
 

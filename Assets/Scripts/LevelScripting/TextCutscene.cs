@@ -1,26 +1,45 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 namespace Nullborne.Dialogue
 {
 
+    [RequireComponent(typeof(DialogueManager))]
     public class TextCutscene : MonoBehaviour
     {
 
-        [SerializeField] private DialogueAsset dialogue;
-        private DialogueManager dialogueManager;
+        [SerializeField] private DialogueAsset dialogueAsset_;
+        private DialogueManager dialogueManager_;
 
-        [SerializeField] private string nextScene;
+        private Button nextSceneButton_;
+        [SerializeField] private string nextScene_;
 
 
     
         private void Start()
         {
 
-            dialogueManager = FindFirstObjectByType<DialogueManager>();
-            dialogueManager.dialogueEnd.AddListener(() => SceneManager.LoadScene(nextScene));
-            dialogueManager.OpenDialogue(dialogue);
+            Invoke("RunCutscene", 0.5f);
+
+            nextSceneButton_ = FindFirstObjectByType<Button>();
+
+            if(nextSceneButton_ == null) return;
+
+            nextSceneButton_.onClick.AddListener(() => SceneManager.LoadScene(nextScene_));
+            nextSceneButton_.gameObject.SetActive(false);
+
+        }
+
+
+
+        private void RunCutscene()
+        {
+
+            dialogueManager_ = FindFirstObjectByType<DialogueManager>();
+            dialogueManager_.dialogueEnd.AddListener(LoadNextScene);
+            dialogueManager_.OpenDialogue(dialogueAsset_);
 
         }
 
@@ -31,8 +50,23 @@ namespace Nullborne.Dialogue
             
             if(Input.GetButtonDown("Cancel"))
             {
-                dialogueManager.CloseDialogue();
+                dialogueManager_.CloseDialogue();
             }
+
+        }
+
+
+
+        private void LoadNextScene()
+        {
+
+            if(nextSceneButton_ == null)
+            {
+                SceneManager.LoadScene(nextScene_);
+                return;
+            }
+
+            nextSceneButton_.gameObject.SetActive(true);
 
         }
 

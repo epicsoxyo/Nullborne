@@ -10,6 +10,9 @@ namespace Nullborne.UI
     public class DraggableElement : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
 
+        [SerializeField] private DraggableElementType draggableElementType_;
+        public DraggableElementType draggableElementType{get{return draggableElementType_;}}
+
         private RectTransform rectTransform_;
 
         private CanvasGroup canvasGroup_;

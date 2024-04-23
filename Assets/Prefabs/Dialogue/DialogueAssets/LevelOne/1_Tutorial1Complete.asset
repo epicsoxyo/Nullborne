@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8d861e2b5b1e494c86fc997bd926f47, type: 3}
+  m_Name: 1_Tutorial1Complete
+  m_EditorClassIdentifier: 
+  speaker: You
+  dialogue:
+  - I think that looks about right...?
+  - I guess there's only one way to find out...
+  - Whelp, I have nothing to lose. Guess I'd better find something that will kill
+    me.
+  - Shouldn't be too hard, considering everyone on the planet wants me dead.

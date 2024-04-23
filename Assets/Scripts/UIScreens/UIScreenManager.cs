@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using Nullborne.Player;
+using Nullborne.Quests;
 
 
 
@@ -38,10 +39,17 @@ namespace Nullborne.UI
 
             if(instance != null)
             {
-                Debug.LogWarning("Multiple Screen Managers detected!");
+                Debug.LogWarning("Multiple ScreenManager instances detected!");
                 return;
             }
             instance = this;
+
+        }
+
+
+
+        private void Start()
+        {
 
             screenElements_ = FindObjectsOfType<UIScreenElement>();
 
@@ -91,6 +99,7 @@ namespace Nullborne.UI
 
             if(dialogueOn)
             {
+                if(currentScreen_ == UIScreen.SCREEN_DIALOGUE) return;
                 previousScreen_ = currentScreen_;
                 SwitchToScreen(UIScreen.SCREEN_DIALOGUE);
                 return;

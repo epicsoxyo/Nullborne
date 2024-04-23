@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8d861e2b5b1e494c86fc997bd926f47, type: 3}
   m_Name: 1_Opening
   m_EditorClassIdentifier: 
-  dialogueName: Level One Opening
+  speaker: You
   dialogue:
   - I might never see her again? What on Earth was all that about?
   - I can't accept this... I must find mother!

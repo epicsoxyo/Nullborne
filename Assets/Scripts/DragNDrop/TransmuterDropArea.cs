@@ -13,16 +13,9 @@ namespace Nullborne.UI
 
 
 
-        private void Start()
-        {
-            endGlyph = transform.GetChild(0);
-        }
-
-
-
         public void OnDrop(PointerEventData eventData)
         {
-            endGlyph.SetAsLastSibling();
+            GameObject.FindWithTag("EndGlyph").transform.SetAsLastSibling();
         }
 
     }

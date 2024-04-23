@@ -23,6 +23,7 @@ namespace Nullborne.Dialogue
         private TextMeshProUGUI dialogueTextBox;
         private Image downArrow;
 
+        private string speaker;
         private string[] currentDialogue;
         private int currentDialogueIndex = 0;
 
@@ -32,18 +33,6 @@ namespace Nullborne.Dialogue
 
 
         private void Awake()
-        {
-
-            dialogueTextBox = GetComponentInChildren<TextMeshProUGUI>();
-
-            downArrow = GetComponentsInChildren<Image>()[1];
-            downArrow.enabled = false;
-
-        }
-
-
-
-        private void Start()
         {
             
             if(instance != null)
@@ -58,12 +47,24 @@ namespace Nullborne.Dialogue
 
 
 
+        private void Start()
+        {
+
+            dialogueTextBox = GetComponentInChildren<TextMeshProUGUI>();
+
+            downArrow = GetComponentsInChildren<Image>()[1];
+            downArrow.enabled = false;
+
+        }
+
+
+
         private void Update()
         {
             
             if(currentDialogue == null || !Input.GetButtonDown("Submit")) return;
 
-            if(currentDialogueIndex == currentDialogue.Length)
+            if(currentDialogueIndex >= currentDialogue.Length)
             {
                 CloseDialogue();
                 return;
@@ -84,6 +85,7 @@ namespace Nullborne.Dialogue
                 UIScreenManager.instance.ToggleDialogue(true);
             }
 
+            speaker = dialogueAsset.speaker;
             currentDialogue = dialogueAsset.dialogue;
             currentDialogueIndex = 0;
 
@@ -103,9 +105,10 @@ namespace Nullborne.Dialogue
 
             for(int i = 1; i <= currentDialogue[currentDialogueIndex].Length; i++)
             {
+                string speakerString = (speaker == "") ? ("") : (speaker + ": ");
                 string substring = currentDialogue[currentDialogueIndex].Substring(0, i);
 
-                dialogueTextBox.SetText(substring);
+                dialogueTextBox.SetText(speakerString + substring);
 
                 yield return new WaitForSeconds(1 / charactersPerSecond);
             }
@@ -145,7 +148,8 @@ namespace Nullborne.Dialogue
 
             StopAllCoroutines();
 
-            dialogueTextBox.SetText(currentDialogue[currentDialogueIndex]);
+            string speakerString = (speaker == "") ? ("") : (speaker + ": ");
+            dialogueTextBox.SetText(speakerString + currentDialogue[currentDialogueIndex]);
 
             downArrow.enabled = true;
 
@@ -160,6 +164,8 @@ namespace Nullborne.Dialogue
         public void CloseDialogue()
         {
 
+            Debug.Log("Closing dialogue");
+
             StopAllCoroutines();
 
             downArrow.enabled = false;
@@ -168,6 +174,7 @@ namespace Nullborne.Dialogue
 
             if(UIScreenManager.instance)
             {
+                Debug.Log("There is an instance of screen manager");
                 UIScreenManager.instance.ToggleDialogue(false);
             }
 
