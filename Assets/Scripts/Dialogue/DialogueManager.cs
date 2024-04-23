@@ -20,8 +20,8 @@ namespace Nullborne.Dialogue
 
         public UnityEvent dialogueEnd = new UnityEvent();
 
-        private TextMeshProUGUI dialogueTextBox;
-        private Image downArrow;
+        [SerializeField] private TextMeshProUGUI dialogueTextBox;
+        [SerializeField] private Image downArrow;
 
         private string speaker;
         private string[] currentDialogue;
@@ -42,18 +42,6 @@ namespace Nullborne.Dialogue
             }
 
             instance = this;
-
-        }
-
-
-
-        private void Start()
-        {
-
-            dialogueTextBox = GetComponentInChildren<TextMeshProUGUI>();
-
-            downArrow = GetComponentsInChildren<Image>()[1];
-            downArrow.enabled = false;
 
         }
 
@@ -105,7 +93,7 @@ namespace Nullborne.Dialogue
 
             for(int i = 1; i <= currentDialogue[currentDialogueIndex].Length; i++)
             {
-                string speakerString = (speaker == "") ? ("") : (speaker + ": ");
+                string speakerString = (speaker == null || speaker.Length <= 1) ? ("") : (speaker + ": ");
                 string substring = currentDialogue[currentDialogueIndex].Substring(0, i);
 
                 dialogueTextBox.SetText(speakerString + substring);
@@ -148,7 +136,9 @@ namespace Nullborne.Dialogue
 
             StopAllCoroutines();
 
-            string speakerString = (speaker == "") ? ("") : (speaker + ": ");
+            if(currentDialogue[currentDialogueIndex] == null) return;
+
+            string speakerString = (speaker == null || speaker.Length <= 1) ? ("") : (speaker + ": ");
             dialogueTextBox.SetText(speakerString + currentDialogue[currentDialogueIndex]);
 
             downArrow.enabled = true;
@@ -164,8 +154,6 @@ namespace Nullborne.Dialogue
         public void CloseDialogue()
         {
 
-            Debug.Log("Closing dialogue");
-
             StopAllCoroutines();
 
             downArrow.enabled = false;
@@ -174,7 +162,6 @@ namespace Nullborne.Dialogue
 
             if(UIScreenManager.instance)
             {
-                Debug.Log("There is an instance of screen manager");
                 UIScreenManager.instance.ToggleDialogue(false);
             }
 

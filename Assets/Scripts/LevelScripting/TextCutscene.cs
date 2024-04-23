@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,12 +7,10 @@ using UnityEngine.UI;
 namespace Nullborne.Dialogue
 {
 
-    [RequireComponent(typeof(DialogueManager))]
     public class TextCutscene : MonoBehaviour
     {
 
         [SerializeField] private DialogueAsset dialogueAsset_;
-        private DialogueManager dialogueManager_;
 
         private Button nextSceneButton_;
         [SerializeField] private string nextScene_;
@@ -21,7 +20,7 @@ namespace Nullborne.Dialogue
         private void Start()
         {
 
-            Invoke("RunCutscene", 0.5f);
+            StartCoroutine("WaitForDialogueManager");
 
             nextSceneButton_ = FindFirstObjectByType<Button>();
 
@@ -34,12 +33,13 @@ namespace Nullborne.Dialogue
 
 
 
-        private void RunCutscene()
+        private IEnumerator WaitForDialogueManager()
         {
 
-            dialogueManager_ = FindFirstObjectByType<DialogueManager>();
-            dialogueManager_.dialogueEnd.AddListener(LoadNextScene);
-            dialogueManager_.OpenDialogue(dialogueAsset_);
+            while(DialogueManager.instance == null) yield return null;
+
+            DialogueManager.instance.OpenDialogue(dialogueAsset_);
+            DialogueManager.instance.dialogueEnd.AddListener(LoadNextScene);
 
         }
 
@@ -50,7 +50,7 @@ namespace Nullborne.Dialogue
             
             if(Input.GetButtonDown("Cancel"))
             {
-                dialogueManager_.CloseDialogue();
+                DialogueManager.instance.CloseDialogue();
             }
 
         }

@@ -18,6 +18,15 @@ EditorBuildSettings:
     path: Assets/Scenes/1.1_FirstDeath.unity
     guid: 11ec5625e9f4d8845b0616ffb6ee9e07
   - enabled: 1
+    path: Assets/Scenes/1.2_Spotted.unity
+    guid: 49bf128549fd2d34f9a48972724d6b30
+  - enabled: 1
+    path: Assets/Scenes/1.3_Suicide.unity
+    guid: 0cd2849ec9159cd45b9800c2aa1aed74
+  - enabled: 1
+    path: Assets/Scenes/1.4_Murder.unity
+    guid: be0d06d1fbacc44458875d759f1629c8
+  - enabled: 1
     path: Assets/Scenes/DemoEnd.unity
     guid: 758783634c365e043a5e3a937275bab3
   m_configObjects: {}

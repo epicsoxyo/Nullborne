@@ -20,6 +20,6 @@ MonoBehaviour:
   - Escape to safety
   questEventListeners:
   - PickUpGlyphs
-  - EncodeTransmuter
+  - CompileOnCast
   - GetPastGuardian
   - EndLevel

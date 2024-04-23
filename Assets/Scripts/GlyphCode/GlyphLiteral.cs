@@ -9,8 +9,9 @@ namespace Nullborne.GlyphCode
     public enum GlyphLiteralType : byte
     {
         LITERAL_SAVE = 0x00,
-        LITERAL_WITCH = 0x01,
-        LITERAL_STATUE = 0x02,
+        LITERAL_NULLBORNE = 0x01,
+        LITERAL_GUARDIAN = 0x02,
+        LITERAL_STATUE = 0x03,
 
         // add literals here...
     }
@@ -18,19 +19,11 @@ namespace Nullborne.GlyphCode
 
 
     [RequireComponent(typeof(TMP_InputField))]
-    public class GlyphLiteral : Glyph
+    public class GlyphLiteral : MonoBehaviour
     {
 
         [SerializeField] private GlyphLiteralType operand_;
         public GlyphLiteralType operand{get{return operand_;}}
-
-
-
-        private void Awake()
-        {
-            glyphCode_ = GlyphCode.GLYPH_LITERAL;
-        }
-
 
     }
 

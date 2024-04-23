@@ -1,0 +1,147 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4838922559035904459
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5995977691289818971}
+  - component: {fileID: 6788655710393046972}
+  - component: {fileID: 7207675281755113024}
+  - component: {fileID: 2917042587458536088}
+  - component: {fileID: 6984372091900554528}
+  - component: {fileID: 4510644900408710972}
+  m_Layer: 0
+  m_Name: SanctuaryCube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5995977691289818971
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4838922559035904459}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000020852278, y: -0.29952285, z: 0.000000006546278, w: 0.95408916}
+  m_LocalPosition: {x: 2.42, y: -1.0242496, z: -9.88}
+  m_LocalScale: {x: 0.51386, y: 0.51386, z: 0.51386}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -34.858, z: 0}
+--- !u!33 &6788655710393046972
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4838922559035904459}
+  m_Mesh: {fileID: 4300000, guid: 6e3a0c7243809ff4f813e9557eea15b8, type: 3}
+--- !u!23 &7207675281755113024
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4838922559035904459}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 90a7c3578626aaf488d4ee802eafa3fe, type: 2}
+  - {fileID: 2100000, guid: aaee6c1a313059f48acf0111e6bab79c, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2917042587458536088
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4838922559035904459}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5, y: 3.5, z: 5}
+  m_Center: {x: 0, y: 1.5, z: 0.5}
+--- !u!114 &6984372091900554528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4838922559035904459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9086ec41194cfc4d89a251417337c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  focus_: {fileID: 5995977691289818971}
+  dialogue_: {fileID: 11400000, guid: 5d935f00290024b40a91f8b5f2255760, type: 2}
+--- !u!114 &4510644900408710972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4838922559035904459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d03adfa38e60a540911967cb663176e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glyphPickupNotification_: {fileID: 11400000, guid: 175b4603067b5024b9755ac8362cf8d3, type: 2}
+  glyphsToAdd_:
+  - {fileID: 9131024666321936896, guid: a11ff6480c2b6ef429a781118554a9c9, type: 3}
+  - {fileID: 9131024666321936896, guid: a11ff6480c2b6ef429a781118554a9c9, type: 3}
+  - {fileID: 3461371792185586763, guid: 051427ad32d6f4a4fbff4c88758c3570, type: 3}
+  - {fileID: 1577506770509891365, guid: 9e9da158a465fd14998ef7666aec2cb2, type: 3}
+  - {fileID: 1577506770509891365, guid: 9e9da158a465fd14998ef7666aec2cb2, type: 3}
+  literalsToAdd_:
+  - {fileID: 3112725105055574891, guid: e406a070ddddf64409d3997a4ff83f8b, type: 3}
+  - {fileID: 550948607622125627, guid: 9b2aeddcee7cb0c4590b2334bd33b58a, type: 3}
+  - {fileID: 6398631368160834203, guid: b4e28d789eb4f3247a476eab994de509, type: 3}

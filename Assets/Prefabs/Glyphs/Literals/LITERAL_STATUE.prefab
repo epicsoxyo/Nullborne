@@ -203,7 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   glyphCode_: 0
   glyphCost_: 0
-  operand_: 2
+  operand_: 3
 --- !u!114 &566586495522975257
 MonoBehaviour:
   m_ObjectHideFlags: 0

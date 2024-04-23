@@ -266,37 +266,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 81265385}
   m_CullTransparentMesh: 1
---- !u!1 &111175398
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 111175400}
-  m_Layer: 0
-  m_Name: TextCutscene
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &111175400
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 111175398}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 981.50366, y: 431.37366, z: 1.9744891}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &189653419
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +323,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: TAB
+  m_text: ESC
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -906,8 +875,8 @@ Camera:
   m_GameObject: {fileID: 1626178195}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.10980393, g: 0.1254902, b: 0.10980393, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1538,6 +1507,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7513243581983926961, guid: 6e4b6fd85e6a296439af997706d423eb, type: 3}
+      propertyPath: downArrow
+      value: 
+      objectReference: {fileID: 1840576113110634899}
+    - target: {fileID: 7513243581983926961, guid: 6e4b6fd85e6a296439af997706d423eb, type: 3}
+      propertyPath: dialogueTextBox
+      value: 
+      objectReference: {fileID: 1840576113110634900}
     - target: {fileID: 8586292725801349018, guid: 6e4b6fd85e6a296439af997706d423eb, type: 3}
       propertyPath: m_Name
       value: TextCutscenePanel
@@ -1547,6 +1524,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e4b6fd85e6a296439af997706d423eb, type: 3}
+--- !u!114 &1840576113110634899 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9188401738322246131, guid: 6e4b6fd85e6a296439af997706d423eb, type: 3}
+  m_PrefabInstance: {fileID: 1840576113110634898}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1840576113110634900 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4343702149739640817, guid: 6e4b6fd85e6a296439af997706d423eb, type: 3}
+  m_PrefabInstance: {fileID: 1840576113110634898}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5564309140581056173 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6104427878721071034, guid: 6e4b6fd85e6a296439af997706d423eb, type: 3}
@@ -1557,6 +1556,5 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1626178198}
-  - {fileID: 111175400}
   - {fileID: 1931919168}
   - {fileID: 1919318}

@@ -17271,7 +17271,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1269840143}
   - component: {fileID: 1269840144}
-  - component: {fileID: 1269840145}
   m_Layer: 0
   m_Name: LevelScript
   m_TagString: Untagged
@@ -17310,18 +17309,6 @@ MonoBehaviour:
   tutorialDialogue1_: {fileID: 11400000, guid: 3ed5d46033d7aec4f9a8e3d76c5c84b7, type: 2}
   tutorialQuest_: {fileID: 11400000, guid: 2af7d37b62bdda443be41b2dbb4bd5c4, type: 2}
   tutorialQuest2_: {fileID: 11400000, guid: af055bac8b8515c4b8d3ca570340c7f6, type: 2}
---- !u!114 &1269840145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1269840142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00ecda672205dc44683415ac30fc50ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1271692546 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: fe74bd959d3a0f540933cb4f8036170b, type: 3}
@@ -29434,6 +29421,10 @@ PrefabInstance:
       propertyPath: manaBar_
       value: 
       objectReference: {fileID: 2058655807}
+    - target: {fileID: 4996772288656348290, guid: a00fe5e8098605748b65429b06bc5dfd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8026260517594134480, guid: a00fe5e8098605748b65429b06bc5dfd, type: 3}
       propertyPath: m_Name
       value: Player
@@ -29545,6 +29536,8 @@ MonoBehaviour:
   dialogueEnd:
     m_PersistentCalls:
       m_Calls: []
+  dialogueTextBox: {fileID: 1072208973222447282}
+  downArrow: {fileID: 4056631872924852050}
   charactersPerSecond: 60
 --- !u!114 &4760872584656414055
 MonoBehaviour:
@@ -34568,6 +34561,14 @@ PrefabInstance:
       propertyPath: dialogue_
       value: 
       objectReference: {fileID: 11400000, guid: dfb07be0a838fcb438f5a9477e70fada, type: 2}
+    - target: {fileID: 1840185125220961206, guid: f225230a3ea28dd4b8aad5ac48a0b2b6, type: 3}
+      propertyPath: spottedDialogue_
+      value: 
+      objectReference: {fileID: 11400000, guid: dfb07be0a838fcb438f5a9477e70fada, type: 2}
+    - target: {fileID: 1840185125220961206, guid: f225230a3ea28dd4b8aad5ac48a0b2b6, type: 3}
+      propertyPath: distractedDialogue_
+      value: 
+      objectReference: {fileID: 11400000, guid: 1ed6954c982e1d541a392800520a43d8, type: 2}
     - target: {fileID: 3384252595736592723, guid: f225230a3ea28dd4b8aad5ac48a0b2b6, type: 3}
       propertyPath: m_Name
       value: Turret

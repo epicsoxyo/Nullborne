@@ -10,12 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8d861e2b5b1e494c86fc997bd926f47, type: 3}
-  m_Name: 1_Turret
+  m_Name: StatueDialogue
   m_EditorClassIdentifier: 
-  speaker: Guardian
+  speaker: Statue
   dialogue:
-  - You there! ...why can't I see your mana?
-  - Wait...
-  - You must be a Nullborne!
-  - Then I have no choice...
-  - DIE, SCUM!
+  - ...

@@ -1,3 +1,4 @@
+using System.Collections;
 using Nullborne.Dialogue;
 using Nullborne.Quests;
 using UnityEngine;
@@ -26,17 +27,24 @@ namespace Nullborne.Levels
 
             dialogueWall_ = FindFirstObjectByType<DialogueWall>();
 
-            Invoke("Opening", 0.5f);
+            StartCoroutine("WaitForManagers");
 
         }
 
 
 
-        private void Opening()
+        private IEnumerator WaitForManagers()
         {
+
+            while(FadeScreen.instance == null
+            || DialogueManager.instance == null
+            || QuestManager.instance == null)
+                yield return null;
+
             FadeScreen.instance.FadeIn();
             DialogueManager.instance.OpenDialogue(openingDialogue_);
             QuestManager.instance.SetCurrentQuest(tutorialQuest_);
+
         }
 
 

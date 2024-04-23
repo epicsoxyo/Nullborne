@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8d861e2b5b1e494c86fc997bd926f47, type: 3}
   m_Name: 0_Prologue
   m_EditorClassIdentifier: 
-  dialogueName: Prologue
+  speaker: 
   dialogue:
   - In a world where magic reigns supreme, where the very essence of power flows
     through the veins of its inhabitants, lies a city pulsating with life and energy.
@@ -23,12 +23,12 @@ MonoBehaviour:
   - But with great power came great unrest.
   - The manabornes rose against their oppressors, unleashing their wrath upon those
     without the gift.
-  - In the wake of the uprising, non-magic humans -- eventually dubbed the 'nullbornes'
-    -- became extinct, and all the ManaTech devices were destroyed.
+  - "In the wake of the uprising, non-magic humans \u2014 eventually dubbed the 'nullbornes'
+    \u2014 became extinct, and all the ManaTech devices were destroyed."
   - It was made universal law that all nullbornes be put to death, to further the
     evolution of humanity.
   - "Yet, thirteen years ago, a glimmer of hope emerged. Concealed from the eyes
-    of society, a child\u2014the first nullborne in generations\u2014was born."
+    of society, a child \u2014 the first nullborne in generations \u2014 was born."
   - Raised in solitude by their loving mother, they spent their life sheltered from
     the prejudice of the world beyond.
   - But fate is a cruel mistress.

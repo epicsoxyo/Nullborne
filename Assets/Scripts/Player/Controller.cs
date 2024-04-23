@@ -13,6 +13,8 @@ namespace Nullborne.Player
     public class Controller : MonoBehaviour
     {
 
+        public static Controller instance;
+
         private NavMeshAgent navMeshAgent_;
 
         private Animator anim_;
@@ -23,8 +25,17 @@ namespace Nullborne.Player
 
         private void Awake()
         {
+
+            if(instance != null)
+            {
+                Debug.LogWarning("Multiple PlayerController instances detected!");
+                return;
+            }
+            instance = this;
+
             navMeshAgent_ = GetComponent<NavMeshAgent>();
             anim_ = GetComponentInChildren<Animator>();
+
         }
 
 

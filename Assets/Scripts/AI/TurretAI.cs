@@ -21,9 +21,14 @@ namespace Nullborne.AI
         private bool playerIsNearby_ = false;
         private bool hasAlerted_ = false;
 
-        [SerializeField] private DialogueAsset dialogue_;
+        [SerializeField] private DialogueAsset spottedDialogue_;
+        [SerializeField] private DialogueAsset distractedDialogue_;
+        [SerializeField] private DialogueAsset soundDialogue_;
 
         private CinemachineVirtualCamera cinemachineVirtualCamera_;
+
+        private ParticleSystem particleSystem_;
+        private SkinnedMeshRenderer[] skinnedMeshRenderers_;
 
 
 
@@ -32,6 +37,8 @@ namespace Nullborne.AI
         {
             playerTransform_ = GameObject.FindWithTag("Player").transform;
             cinemachineVirtualCamera_ = FindFirstObjectByType<CinemachineVirtualCamera>();
+            particleSystem_ = GetComponentInChildren<ParticleSystem>();
+            skinnedMeshRenderers_ = GetComponentsInChildren<SkinnedMeshRenderer>();
         }
 
 
@@ -93,8 +100,32 @@ namespace Nullborne.AI
         public void Alert()
         {
 
+            FocusOnTurret();
+
+            DialogueManager.instance.OpenDialogue(spottedDialogue_);
+            DialogueManager.instance.dialogueEnd.AddListener(() => StartCoroutine("ExplodePlayer"));
+
+        }
+
+
+
+        private IEnumerator ExplodePlayer()
+        {
+
+            FocusOnPlayer();
+
+            yield return new WaitForSeconds(1f);
+
+            playerTransform_.GetComponent<PlayerKiller>().KillPlayer();
+
+        }
+
+
+
+        private void FocusOnTurret()
+        {
+
             cinemachineVirtualCamera_.LookAt = transform.GetChild(0);
-            // cinemachineVirtualCamera_.m_LookAt = transform.GetChild(0);
 
             cinemachineVirtualCamera_.m_Lens = new LensSettings
             (
@@ -105,14 +136,11 @@ namespace Nullborne.AI
                 cinemachineVirtualCamera_.m_Lens.Dutch
             );
 
-            DialogueManager.instance.OpenDialogue(dialogue_);
-            DialogueManager.instance.dialogueEnd.AddListener(() => StartCoroutine("ExplodePlayer"));
-
         }
 
 
 
-        private IEnumerator ExplodePlayer()
+        private void FocusOnPlayer()
         {
 
             cinemachineVirtualCamera_.LookAt = playerTransform_;
@@ -126,22 +154,59 @@ namespace Nullborne.AI
                 cinemachineVirtualCamera_.m_Lens.Dutch
             );
 
-            yield return new WaitForSeconds(1f);
-
-            PlayerKiller playerKiller = playerTransform_.GetComponent<PlayerKiller>();
-
-            Debug.Log(playerKiller);
-
-            playerKiller.TriggerFirstPlayerDeath();
-
         }
+
 
 
 
         public void Explode()
         {
 
-            // explode, then call player explosion that loads scene where nullborne realises that killing witches is punishable by death
+            particleSystem_.Play();
+
+            foreach(SkinnedMeshRenderer skinnedMeshRenderer in skinnedMeshRenderers_)
+            {
+                skinnedMeshRenderer.enabled = false;
+            }
+
+            Invoke("KillPlayerForMurder", 1f);
+
+        }
+
+        private void KillPlayerForMurder()
+        {
+            GameObject.FindWithTag("Player").GetComponent<PlayerKiller>().KillPlayerForMurder();
+        }
+
+
+
+        public void Distract(Transform lookAtTransform)
+        {
+
+            transform.LookAt(lookAtTransform);
+
+            GetComponent<Collider>().enabled = false;
+
+            FocusOnTurret();
+
+            DialogueManager.instance.OpenDialogue(distractedDialogue_);
+            DialogueManager.instance.dialogueEnd.AddListener(() => FocusOnPlayer());
+
+        }
+
+
+
+        public void Sound()
+        {
+
+            FocusOnTurret();
+
+            DialogueManager.instance.OpenDialogue(soundDialogue_);
+            DialogueManager.instance.dialogueEnd.AddListener(() => 
+            {
+                FocusOnPlayer();
+                DialogueManager.instance.dialogueEnd.RemoveListener(FocusOnPlayer);
+            });
 
         }
 

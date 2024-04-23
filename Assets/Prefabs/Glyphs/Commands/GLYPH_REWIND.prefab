@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3073059435568896497}
   - component: {fileID: 3299043005014135163}
   - component: {fileID: 2778630517686546985}
+  - component: {fileID: 5827943921085215739}
   m_Layer: 5
   m_Name: LiteralDropZone
   m_TagString: Untagged
@@ -75,6 +76,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5827943921085215739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4138450805636815644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e11426d3e8126704e9c93aaa7c2fb42e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  draggableElementType_: 2
 --- !u!1 &5114646914827131922
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,6 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2446c77b58001b44698b3f4c13ca8e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  draggableElementType_: 1
   dragAlpha_: 0.6
   tileSwapDistThreshold_: 10
 --- !u!114 &920772651933995592
@@ -354,5 +369,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b2dfb4f07082644a50fae39f8109e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glyphCode_: 5
-  glyphCost_: 5
+  glyphCode_: 4
+  glyphCost_: 0

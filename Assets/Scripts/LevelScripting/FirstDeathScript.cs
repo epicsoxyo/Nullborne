@@ -15,8 +15,8 @@ namespace Nullborne.Levels
         [SerializeField] private DialogueAsset openingDialogue_;
         // [SerializeField] private DialogueAsset tutorialDialogue1_;
 
-        // [Header("Quests")]
-        // [SerializeField] private QuestAsset tutorialQuest_;
+        [Header("Quests")]
+        [SerializeField] private QuestAsset tutorialQuest_;
         // [SerializeField] private QuestAsset tutorialQuest2_;
 
         // private DialogueWall dialogueWall_;
@@ -37,7 +37,7 @@ namespace Nullborne.Levels
         {
             FadeScreen.instance.FadeIn();
             DialogueManager.instance.OpenDialogue(openingDialogue_);
-            // QuestManager.instance.SetCurrentQuest(tutorialQuest_);
+            QuestManager.instance.SetCurrentQuest(tutorialQuest_);
         }
 
 

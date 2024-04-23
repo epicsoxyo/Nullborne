@@ -32,6 +32,8 @@ namespace Nullborne.UI
         public UIScreen currentScreen{get{return currentScreen_;}}
         private UIScreen previousScreen_;
 
+        private Controller playerController_;
+
 
 
         private void Awake()
@@ -56,6 +58,8 @@ namespace Nullborne.UI
             QuickSwitchToScreen(startingScreen_);
             currentScreen_ = startingScreen_;
             previousScreen_ = currentScreen_;
+
+            playerController_ = Controller.instance;
 
         }
 
@@ -95,7 +99,7 @@ namespace Nullborne.UI
         public void ToggleDialogue(bool dialogueOn)
         {
 
-            PlayerManager.instance.EnableAllPlayers(!dialogueOn);
+            Controller.instance.enabled = !dialogueOn;
 
             if(dialogueOn)
             {

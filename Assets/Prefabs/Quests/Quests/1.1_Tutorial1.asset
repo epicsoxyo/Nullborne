@@ -20,4 +20,4 @@ MonoBehaviour:
   questEventListeners:
   - OpenTransmuter
   - SwitchToOnDeath
-  - ClickCompile
+  - CompileOnDeath
